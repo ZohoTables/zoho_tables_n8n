@@ -28,7 +28,7 @@ export function throwOnErrorStatus(
  */
 
 async function getDomain(this: IExecuteFunctions | ILoadOptionsFunctions | IPollFunctions | IHookFunctions | IWebhookFunctions) {
-	const credentials = await this.getCredentials('zohoTablesOAuth2Api');
+	const credentials = await this.getCredentials('zohotablesOAuth2Api');
 	const accessTokenUrl = credentials.accessTokenUrl as string || '';
 	let domain = 'zoho.com'; // default
 	
@@ -73,8 +73,7 @@ export async function apiRequest(
 		delete options.body;
 	}
 
-	const authenticationMethod = this.getNodeParameter('authentication', 0) as string;
-	return await this.helpers.requestOAuth2.call(this, authenticationMethod, options);
+	return await this.helpers.requestOAuth2.call(this, 'zohotablesOAuth2Api', options);
 }
 
 export async function apiWebhookRequest(
@@ -94,7 +93,7 @@ export async function apiWebhookRequest(
 		method,
 		body,
 		qs: query,
-		uri: uri || `https://tables.${domain}//wh/v1/${endpoint}`,
+		uri: uri || `https://tables.${domain}/wh/v1/${endpoint}`,
 		useQuerystring: false,
 		json: true,
 	};
@@ -107,6 +106,5 @@ export async function apiWebhookRequest(
 		delete options.body;
 	}
 
-	const authenticationMethod = this.getNodeParameter('authentication', 0) as string;
-	return await this.helpers.requestOAuth2.call(this, authenticationMethod, options);
+	return await this.helpers.requestOAuth2.call(this, 'zohotablesOAuth2Api', options);
 }

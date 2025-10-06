@@ -1,4 +1,4 @@
-import {type INodeTypeDescription, NodeConnectionType } from 'n8n-workflow';
+import {type INodeTypeDescription, NodeConnectionTypes } from 'n8n-workflow';
 
 import * as record from './record/Record.resource';
 
@@ -13,8 +13,8 @@ export const versionDescription: INodeTypeDescription = {
 	defaults: {
 		name: 'Zoho Tables',
 	},
-	inputs: [NodeConnectionType.Main],
-	outputs: [NodeConnectionType.Main],
+	inputs: [NodeConnectionTypes.Main],
+	outputs: [NodeConnectionTypes.Main],
 	credentials: [
 		{
 			name: 'zohotablesOAuth2Api',
