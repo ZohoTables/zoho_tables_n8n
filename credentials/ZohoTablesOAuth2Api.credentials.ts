@@ -79,7 +79,7 @@ export class ZohoTablesOAuth2Api implements ICredentialType {
 			displayName: 'Authentication',
 			name: 'authentication',
 			type: 'hidden',
-			default: 'body',
+			default: 'header',
 		},
 	];
 }
