@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "description": "",
   "keywords": [
-	"n8n-nodes",
+    "zoho",
+    "zohotables",
+	  "n8n-nodes",
     "n8n-community-node-package"
   ],
   "license": "MIT",
@@ -14,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rajinr/n8n-zoho-tables.git"
+    "url": "https://github.com/ZohoTables/zoho_tables_n8n.git"
   },
   "main": "index.js",
   "scripts": {
@@ -31,12 +33,10 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/ExampleCredentialsApi.credentials.js",
-      "dist/credentials/HttpBinApi.credentials.js"
+      "dist/credentials/ZohoTablesOAuth2Api.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/ExampleNode/ExampleNode.node.js",
-      "dist/nodes/HttpBin/HttpBin.node.js"
+      "dist/nodes/ZohoTables/ZohoTables.node.js",
     ]
   },
   "devDependencies": {
