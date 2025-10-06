@@ -44,7 +44,7 @@ async function getDomain(this: IExecuteFunctions | ILoadOptionsFunctions | IPoll
 }
 
 export async function apiRequest(
-	this: IExecuteFunctions | ILoadOptionsFunctions | IPollFunctions,
+	this: IExecuteFunctions | ILoadOptionsFunctions | IPollFunctions | IWebhookFunctions,
 	method: IHttpRequestMethods,
 	endpoint: string,
 	body: IDataObject = {},
@@ -77,78 +77,36 @@ export async function apiRequest(
 	return await this.helpers.requestOAuth2.call(this, authenticationMethod, options);
 }
 
-/**
- * Make an API request to paginated Zoho Tables endpoint
- * and return all results
- *
- * @param {(IExecuteFunctions | IExecuteFunctions)} this
- */
-export async function apiRequestAllItems(
-
-	this: IExecuteFunctions | ILoadOptionsFunctions | IPollFunctions,
+export async function apiWebhookRequest(
+	this: IExecuteFunctions | IHookFunctions | ILoadOptionsFunctions,
 	method: IHttpRequestMethods,
 	endpoint: string,
 	body: IDataObject = {},
-	qs: IDataObject = {},
+	query?: IDataObject,
+	uri?: string,
+	option: IDataObject = {},
 ) {
+	query = query || {};
 
-	const returnData: IDataObject[] = [];
+	const domain = await getDomain.call(this);
+	const options: IRequestOptions = {
+		headers: {},
+		method,
+		body,
+		qs: query,
+		uri: uri || `https://tables.${domain}//wh/v1/${endpoint}`,
+		useQuerystring: false,
+		json: true,
+	};
 
-	let responseData;
-	qs.per_page = 200;
-	qs.page = 1;
-
-	do {
-		responseData = await apiRequest.call(this, method, endpoint, body, qs);
-		if (Array.isArray(responseData) && !responseData.length) return returnData;
-		returnData.push(...(responseData.data as IDataObject[]));
-		qs.page++;
-
-	} while (responseData.info.more_records !== undefined && responseData.info.more_records === true);
-
-	return returnData;
-}
-
-
-export async function batchUpdate(
-	this: IExecuteFunctions | IPollFunctions,
-	endpoint: string,
-	body: IDataObject,
-	updateRecords: IDataObject[],
-) {
-	if (!updateRecords.length) {
-		return { records: [] };
+	if (Object.keys(option).length !== 0) {
+		Object.assign(options, option);
 	}
 
-	let responseData: IDataObject;
-
-	if (updateRecords.length && updateRecords.length <= 10) {
-		const updateBody = {
-			...body,
-			records: updateRecords,
-		};
-
-		responseData = await apiRequest.call(this, 'PUT', endpoint, updateBody);
-		return responseData;
+	if (Object.keys(body).length === 0) {
+		delete options.body;
 	}
 
-	const batchSize = 10;
-	const batches = Math.ceil(updateRecords.length / batchSize);
-	const updatedRecords: IDataObject[] = [];
-
-	for (let j = 0; j < batches; j++) {
-		const batch = updateRecords.slice(j * batchSize, (j + 1) * batchSize);
-
-		const updateBody = {
-			...body,
-			records: batch,
-		};
-
-		const updateResponse = await apiRequest.call(this, 'PUT', endpoint, updateBody);
-		updatedRecords.push(...((updateResponse.records as IDataObject[]) || []));
-	}
-
-	responseData = { records: updatedRecords };
-
-	return responseData;
+	const authenticationMethod = this.getNodeParameter('authentication', 0) as string;
+	return await this.helpers.requestOAuth2.call(this, authenticationMethod, options);
 }

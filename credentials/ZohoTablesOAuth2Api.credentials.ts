@@ -1,7 +1,6 @@
 import type { ICredentialType, INodeProperties } from 'n8n-workflow';
 
-const scopes = ["ZohoTables.portals.READ", "WorkDrive.team.ALL", "ZohoTables.workspaces.READ", "WorkDrive.workspace.ALL", "WorkDrive.files.ALL", "ZohoTables.bases.READ", "ZohoTables.tables.READ", "ZohoTables.views.READ", "ZohoTables.records.READ", "ZohoTables.records.CREATE", "ZohoTables.records.DELETE", "ZohoTables.records.UPDATE", "ZohoTables.fields.READ", "ZohoTables.fields.CREATE", "ZohoTables.fields.UPDATE", "ZohoTables.fields.DELETE", "WorkDrive.files.ALL", "ZohoTables.webhooks.UPDATE"];
-
+const scopes = ["ZohoTables.portals.READ", "WorkDrive.team.ALL", "ZohoTables.workspaces.READ", "WorkDrive.workspace.ALL", "WorkDrive.files.ALL", "ZohoTables.bases.READ", "ZohoTables.tables.READ", "ZohoTables.views.READ", "ZohoTables.records.READ", "ZohoTables.records.CREATE", "ZohoTables.records.DELETE", "ZohoTables.records.UPDATE", "ZohoTables.fields.READ", "ZohoTables.fields.CREATE", "ZohoTables.fields.UPDATE", "ZohoTables.fields.DELETE", "WorkDrive.files.ALL", "ZohoTables.webhooks.UPDATE", "WorkDrive.files.READ", "WorkDrive.team.READ", "WorkDrive.workspace.READ", "WorkDrive.files.CREATE", "WorkDrive.files.UPDATE", "WorkDrive.workspace.CREATE", "ZohoTables.bases.UPDATE", "ZohoTables.tables.CREATE", "ZohoTables.tables.UPDATE", "ZohoTables.workspaces.CREATE", "ZohoTables.webhooks.CREATE", "ZohoTables.webhooks.DELETE"];
 export class ZohoTablesOAuth2Api implements ICredentialType {
 	name = 'zohotablesOAuth2Api';
 

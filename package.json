@@ -37,6 +37,7 @@
     ],
     "nodes": [
       "dist/nodes/ZohoTables/ZohoTables.node.js",
+      "dist/nodes/ZohoTables/ZohoTablesTrigger.node.js"
     ]
   },
   "devDependencies": {
