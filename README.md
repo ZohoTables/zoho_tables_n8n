@@ -1,4 +1,6 @@
-# n8n-nodes-zoho-tables
+![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
+
+# Zoho Tables integration with n8n
 
 This is an n8n community node. It lets you use **Zoho Tables** in your n8n workflows.
 
