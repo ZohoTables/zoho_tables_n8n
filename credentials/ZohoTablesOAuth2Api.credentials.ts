@@ -26,13 +26,18 @@ export class ZohoTablesOAuth2Api implements ICredentialType {
 				{
 					name: 'https://accounts.zoho.com/oauth/v2/auth',
 					value: 'https://accounts.zoho.com/oauth/v2/auth',
-					description: 'For the EU, AU, and IN domains',
+					description: 'For the US domain',
 				},
 				{
-					name: 'https://accounts.zoho.com.cn/oauth/v2/auth',
-					value: 'https://accounts.zoho.com.cn/oauth/v2/auth',
-					description: 'For the CN domain',
+					name: 'https://accounts.zoho.in/oauth/v2/auth',
+					value: 'https://accounts.zoho.in/oauth/v2/auth',
+					description: 'For the IN domain',
 				},
+				{
+					name: 'https://accounts.zohocloud.ca/oauth/v2/auth',
+					value: 'https://accounts.zohocloud.ca/oauth/v2/auth',
+					description: 'For the CA domain',
+				}
 			],
 			default: 'https://accounts.zoho.com/oauth/v2/auth',
 			required: true,
@@ -43,16 +48,8 @@ export class ZohoTablesOAuth2Api implements ICredentialType {
 			type: 'options',
 			options: [
 				{
-					name: 'AU - https://accounts.zoho.com.au/oauth/v2/token',
-					value: 'https://accounts.zoho.com.au/oauth/v2/token',
-				},
-				{
-					name: 'CN - https://accounts.zoho.com.cn/oauth/v2/token',
-					value: 'https://accounts.zoho.com.cn/oauth/v2/token',
-				},
-				{
-					name: 'EU - https://accounts.zoho.eu/oauth/v2/token',
-					value: 'https://accounts.zoho.eu/oauth/v2/token',
+					name: 'CA - https://accounts.zohocloud.ca/oauth/v2/token',
+					value: 'https://accounts.zohocloud.ca/oauth/v2/token',
 				},
 				{
 					name: 'IN - https://accounts.zoho.in/oauth/v2/token',
