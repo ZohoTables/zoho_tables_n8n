@@ -23,6 +23,8 @@ type ztFieldSchema = {
 
 type TypesMap = Partial<Record<FieldType, string[]>>;
 
+const supportedFieldTypes = ["23", "4", "24", "13", "21", "6", "15", "16", "19", "18", "9", "17", "7", "30"];
+
 const ztFieldTypeMap = {
 	"Attachments"			: "2",
 	"Auto-Number"			: "3",
@@ -100,7 +102,7 @@ export async function getFields(this: ILoadOptionsFunctions): Promise<ResourceMa
 
 		if(response && response.fields) {
 
-			const fieldData = ((response.fields.fetched as IDataObject[]) || []);
+			const fieldData = ((response.fields.fetched as IDataObject[]).filter((field: IDataObject) => supportedFieldTypes.includes(field.type as string)) || []);
 
 			let selectionOptions =  [] as IDataObject[];
 			if(response.selectionOptions){
@@ -168,7 +170,7 @@ export async function getFieldsWithNames(this: ILoadOptionsFunctions ): Promise<
 
 		if(response && response.fields) {
 
-			const fieldData = ((response.fields.fetched as IDataObject[]) || []);
+			const fieldData = ((response.fields.fetched as IDataObject[]).filter((field: IDataObject) => supportedFieldTypes.includes(field.type as string)) || []);
 
 			let selectionOptions =  [] as IDataObject[];
 			if(response.selectionOptions){
