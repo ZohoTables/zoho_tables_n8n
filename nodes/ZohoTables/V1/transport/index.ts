@@ -6,6 +6,7 @@ import type {
 	ILoadOptionsFunctions,
 	IHttpRequestMethods,
 	IRequestOptions,
+	IWebhookFunctions,
 } from 'n8n-workflow';
 
 import { NodeOperationError } from 'n8n-workflow';
@@ -26,6 +27,22 @@ export function throwOnErrorStatus(
  *
  */
 
+async function getDomain(this: IExecuteFunctions | ILoadOptionsFunctions | IPollFunctions | IHookFunctions | IWebhookFunctions) {
+	const credentials = await this.getCredentials('zohoTablesOAuth2Api');
+	const accessTokenUrl = credentials.accessTokenUrl as string || '';
+	let domain = 'zoho.com'; // default
+	
+	if (accessTokenUrl.includes('zoho.in')) {
+		domain = 'zoho.in';
+	} else if (accessTokenUrl.includes('zohocloud.ca')) {
+		domain = 'zohocloud.ca';
+	} else if (accessTokenUrl.includes('zoho.com')) {
+		domain = 'zoho.com';
+	}
+
+	return domain;
+}
+
 export async function apiRequest(
 	this: IExecuteFunctions | ILoadOptionsFunctions | IPollFunctions,
 	method: IHttpRequestMethods,
@@ -37,12 +54,13 @@ export async function apiRequest(
 ) {
 	query = query || {};
 
+	const domain = await getDomain.call(this);
 	const options: IRequestOptions = {
 		headers: {},
 		method,
 		body,
 		qs: query,
-		uri: uri || `https://tables.zoho.com/api/v1/${endpoint}`,
+		uri: uri || `https://tables.${domain}/api/v1/${endpoint}`,
 		useQuerystring: false,
 		json: true,
 	};
